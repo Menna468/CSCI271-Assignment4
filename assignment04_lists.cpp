@@ -207,7 +207,7 @@ template <typename T> class List{
           while(temp != NULL && count < index-1){
             count++;
             temp = temp->next;
-          }.<
+          }
  
           // if insertions is to happen after the first node
           if(index > 0){
@@ -221,7 +221,7 @@ template <typename T> class List{
           cout<<"new node added at index "<<index<<" !"<<endl;
         }
       }
-      
+
 
       /*****************************<size>****************************
       * Description: checks the size
