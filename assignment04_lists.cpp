@@ -1,16 +1,33 @@
 /*************************************************************************
 * Programming Assignment 4 for CSCI 271-001 Spring 2026
 *
-* Author: William Klement (REPLACE THIS WITH YOUR OWN NAME)
-* OS: Ubuntu Debian Linux 21.1
+* Author: Menna Ibrahim
+* OS: Mac
 * Compiler: g++
-* Date: March 9, 2026
+* Date: March 23, 2026
 *
 * Purpose
 * This program implements the class Lists as linked lists of generic nodes 
 * The task is to implement the missing methods. 
 * Please see corresponding assignemnt questions
 *************************************************************************/
+
+/*******************************************************************
+* I declare and confirm the following:
+* - I have not discussed this program code with anyone other than my
+* instructor or the teaching assistants assigned to this course.
+* - I have not used programming code obtained from someone else,
+* or any unauthorised sources, including the Internet, either
+* modified or unmodified.
+* - If any source code or documentation used in my program was
+* obtained from other sources, like a text book or course notes,
+* I have clearly indicated that with a proper citation in the
+* comments of my program.
+* - I have not designed this program in such a way as to defeat or
+* interfere with the normal operation of the supplied grading code.
+*
+* Menna Ibrahim
+********************************************************************/
 
 #include<iostream>
 #include <ctime>
@@ -30,12 +47,14 @@ template <typename T> class Node{
     // Allow the friend class List to access private members
     template <typename U> friend class List;
 
+  //constructor
   public:
     Node(){
       this->next = NULL;
       AN += 1;  // keep track of allocations
     }
 
+    //destructor
     ~Node(){
       // call destructors for the rest of the list
       if (this->next != NULL) {
@@ -69,12 +88,40 @@ template <typename T> class List{
         DN += 1;  // keep track of deallocations
       }
 
+      /*****************************<isEmpty>****************************
+      * Description: checks if the list is empty
+      *
+      * Parameters: none
+      *
+      * Pre: has the list
+      *
+      * Post: checks if the list is empty then it returns the sizw 0
+      *
+      * Returns: 0 if true
+      *
+      * Called by: displayAll, removeLast, removeAt, removeFront, getAt
+      * Calls: size
+      ************************************************************************/
       // check if the list is empty
       //   In this case, an empty list has a size of 0
       bool isEmpty(){
         return (this->size() == 0);
       }
 
+      /*****************************<addLast>****************************
+      * Description: adds a new node to the end of the of the list
+      *
+      * Parameters: item
+      *
+      * Pre: has the list
+      *
+      * Post: adds the new element to the list 
+      *
+      * Returns: none
+      *
+      * Called by: main
+      * Calls: none
+      ************************************************************************/
       // addLast(item) adds an element item of type T at the end of the list
       void addLast(T item){
         Node<T>* newNode = new Node<T>;
@@ -97,6 +144,21 @@ template <typename T> class List{
 
       }
 
+
+      /*****************************<addFront>****************************
+      * Description: adds a new node to the beginning of the of the list
+      *
+      * Parameters: item
+      *
+      * Pre: has the list
+      *
+      * Post: adds the new element to the list 
+      *
+      * Returns: none
+      *
+      * Called by: main
+      * Calls: none
+      ************************************************************************/
       // addFront(item) creates and adds a new element node 
       // containing item at the front of the list
       void addFront(T item){
@@ -109,6 +171,20 @@ template <typename T> class List{
 
       }
 
+      /*****************************<addAt>****************************
+      * Description: adds a new element to the list at the index the user specifies
+      *
+      * Parameters: index, item
+      *
+      * Pre: has the list
+      *
+      * Post: adds the new element to the list 
+      *
+      * Returns: none
+      *
+      * Called by: main
+      * Calls: none
+      ************************************************************************/
       // addAt(index, item) creates and adds a new element node containing 
       // the elemnet item at the position speficied by indes in the list
       void addAt(int index, T item){
@@ -145,13 +221,22 @@ template <typename T> class List{
           cout<<"new node added at index "<<index<<" !"<<endl;
         }
       }
-    
-      /*
-      Runtime Complexity:
-      Best Case = Omega(1)
-      Average Case = Theta(n)
-      Worst Case = O(n)
-      */
+      
+
+      /*****************************<size>****************************
+      * Description: checks the size
+      *
+      * Parameters: none
+      *
+      * Pre: has the list
+      *
+      * Post: counts how many elements in the list
+      *
+      * Returns: the length of the list
+      *
+      * Called by: isEmpty, displayAll, removeAt, getAt, addAt
+      * Calls: none
+      ************************************************************************/
       // size() returns the number of elements in the list
       int size(){
         int len = 0;
@@ -167,6 +252,20 @@ template <typename T> class List{
         return len;
       }
 
+      /*****************************<displayAll>****************************
+      * Description: prints the elements of the list
+      *
+      * Parameters: none
+      *
+      * Pre: has the list
+      *
+      * Post: prints the list elements and the size
+      *
+      * Returns: the length of the list with the content of it
+      *
+      * Called by: main
+      * Calls: isEmpty, size
+      ************************************************************************/
       // displayALL() prints the size and content of the list
       void displayAll(){
         cout<<"____________List of "<<this->size()<<" items________________"<<endl;
@@ -192,6 +291,20 @@ template <typename T> class List{
         cout<<endl;
       }
     
+      /*****************************<removeLast>****************************
+      * Description: removes the last element of the list
+      *
+      * Parameters: none
+      *
+      * Pre: has the list
+      *
+      * Post: removes the last item
+      *
+      * Returns: "The list is empty" if returns true, otherwise returns nothing
+      *
+      * Called by: main
+      * Calls: isEmpty
+      ************************************************************************/
       // removeLast() deletes the last element and its node in the list
       void removeLast(){
         if (this->isEmpty()) {
@@ -218,6 +331,21 @@ template <typename T> class List{
 
       }
 
+
+      /*****************************<removeAt>****************************
+      * Description: removes the specified element of the list
+      *
+      * Parameters: index
+      *
+      * Pre: has the list
+      *
+      * Post: removes the item the user specifies
+      *
+      * Returns: "The list is empty" if returns true, otherwise returns nothing
+      *
+      * Called by: main
+      * Calls: isEmpty
+      ************************************************************************/
       // removeAt(index) deletes the element and its node found at 
       // position index in the list
       void removeAt(int index){
@@ -251,6 +379,21 @@ template <typename T> class List{
         }
       }
 
+
+      /*****************************<removeFront>****************************
+      * Description: removes the frist element of the list
+      *
+      * Parameters: none
+      *
+      * Pre: has the list
+      *
+      * Post: removes the first item
+      *
+      * Returns: "The list is empty" if returns true, otherwise returns nothing
+      *
+      * Called by: main
+      * Calls: isEmpty
+      ************************************************************************/
       // removeFront() deletes the last element and its node in the list
       void removeFront(){
         if (this->isEmpty()) {
@@ -267,6 +410,22 @@ template <typename T> class List{
 
       }
 
+
+      /*****************************<getAt>****************************
+      * Description: shows what the item is at a specific index
+      *
+      * Parameters: index
+      *
+      * Pre: has the list
+      *
+      * Post: checks the item of the specified index
+      *
+      * Returns: "The list is empty" if returns true, "index out of bound" if less than 0 or greater than the size, 
+      * and returnes the index with the element
+      *
+      * Called by: main
+      * Calls: isEmpty, size
+      ************************************************************************/
       // getAt(int index) returns the element found at position index in the list
       T getAt(int index){
         T res = -9999;        // initialize the results to invalid element
@@ -276,7 +435,7 @@ template <typename T> class List{
         }
 
         if (index < 0 || index >= this->size()) {
-          cout << "index of bound!" << endl;
+          cout << "index out of bound!" << endl;
           return res;
         }
 
